@@ -6,7 +6,8 @@ interface Props  {
 
 async function SinglePost({ params }: Props) {
     const { id } = await params;
-    const post = FAKE_POSTS.find((post) => post.id == parseInt(id))
+    const post = FAKE_POSTS.find((post)=> post.id === Number(id))
+    
     
     if (!post) {
         return <h2>Post not found.</h2>

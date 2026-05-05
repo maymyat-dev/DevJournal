@@ -1,5 +1,6 @@
 import { ABOUT, POSTS } from '@/path'
 import Link from 'next/link'
+import { ModeToggle } from './mode-toggle'
 
 function header() {
   return (
@@ -8,7 +9,8 @@ function header() {
           <div className='space-x-4'>
               <Link href={POSTS}>Posts</Link>
               <Link href={ABOUT}>About</Link>
-          </div>
+      </div>
+      <ModeToggle/>
     </div>
   )
 }
