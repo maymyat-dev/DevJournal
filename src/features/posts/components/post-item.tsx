@@ -1,17 +1,21 @@
-import React from 'react'
+"use client"
 import { Post } from '../types/post'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { SINGLE_POST } from '@/path'
 import { MoveUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { deletePost } from '../actions/delete-post'
 
 interface Props extends Post {
     isCard?: boolean
 }
 
-function PostItem({id, title, body, isCard = true} : Props) {
+function PostItem({ id, title, body, isCard = true }: Props) {
+    const deletePostHandler = async () => {
+        await deletePost(id as string);
+    }
   return (
       <Card>
           <CardHeader>
@@ -27,6 +31,14 @@ function PostItem({id, title, body, isCard = true} : Props) {
                   </CardContent>
               )
           }
+          {
+              !isCard && (
+                  <CardFooter>
+                      <Button variant="destructive" size="sm" onClick={deletePostHandler}>Delete</Button>
+                  </CardFooter>
+              )
+          }
+          
     </Card>
   )
 }
