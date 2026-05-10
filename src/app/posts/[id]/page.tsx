@@ -1,12 +1,12 @@
 import PostItem from "@/features/posts/components/post-item";
-import { FAKE_POSTS } from "@/data";
+import { getPost } from "@/features/posts/queries/get-post";
 interface Props  {
     params: Promise<{ id: string}>
 }
 
 async function SinglePost({ params }: Props) {
     const { id } = await params;
-    const post = FAKE_POSTS.find((post)=> post.id === Number(id))
+    const post = await getPost(id);
     
     
     if (!post) {

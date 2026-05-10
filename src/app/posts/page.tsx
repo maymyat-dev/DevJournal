@@ -1,17 +1,17 @@
 import Heading from '@/components/heading'
-import {FAKE_POSTS} from '@/data'
-import PostItem from '@/features/posts/components/post-item'
+import PostList from '@/features/posts/components/post-list'
+import { Suspense } from 'react'
+
 
 function page() {
   return (
     <main>
       <Heading title="All Posts" description="View all posts" />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PostList/>
+      </Suspense>
       <div>
-        {
-          FAKE_POSTS.map((post) => (
-            <PostItem key={post.id} {...post} />
-          ))
-        }
+        
       </div>
     </main>
   )
