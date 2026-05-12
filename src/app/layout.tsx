@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
       suppressHydrationWarning
-    ><head />
+    >
       <body className="min-h-full flex flex-col  max-w-4xl  mx-auto px-8 py-4 lg:px-0">
        
          <ThemeProvider

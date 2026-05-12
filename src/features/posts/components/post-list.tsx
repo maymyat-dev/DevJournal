@@ -7,7 +7,7 @@ async function PostList() {
       <div className='mt-5'>
           {
           posts.map((post) => (
-            <div  key={post.id} className='mb-5'>
+            <div  key={post.id} className='space-y-6 mb-6'>
               <PostItem {...post} />
             </div>
           ))

@@ -1,4 +1,4 @@
-import { ABOUT, POSTS } from '@/path'
+import { ABOUT, POSTS } from '@/lib/path'
 import Link from 'next/link'
 import { ModeToggle } from './mode-toggle'
 

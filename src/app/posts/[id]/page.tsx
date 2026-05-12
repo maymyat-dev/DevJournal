@@ -17,3 +17,5 @@ async function SinglePost({ params }: Props) {
 }
 
 export default SinglePost
+
+

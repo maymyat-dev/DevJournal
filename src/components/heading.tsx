@@ -8,7 +8,7 @@ interface Props {
 function heading({ title, description }: Props) {
     
   return (
-      <div>
+      <div className="mb-6">
           <h2>{title}</h2>
           <p>{description}</p>
           <Separator/>

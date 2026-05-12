@@ -2,7 +2,7 @@
 import { Post } from '../types/post'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
-import { SINGLE_POST } from '@/path'
+import { SINGLE_POST } from '@/lib/path'
 import { MoveUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
