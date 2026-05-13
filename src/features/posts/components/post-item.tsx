@@ -2,7 +2,7 @@
 import { Post } from '../types/post'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
-import { EDIT_POST, SINGLE_POST } from '@/lib/path'
+import { editPostPath, singlePostPath } from '@/path'
 import { MoveUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -26,10 +26,10 @@ function PostItem({ id, title, body, isCard = true }: Props) {
               isCard && (
                   <CardContent className='space-x-4'>
                       <Button variant="outline" size="sm" asChild >
-                      <Link href={SINGLE_POST(id)}><MoveUpRight/>Read</Link>
+                      <Link href={singlePostPath(id)}><MoveUpRight/>Read</Link>
                       </Button>
                       <Button variant="secondary" size="sm" asChild >
-                      <Link href={EDIT_POST(id)}><MoveUpRight/>Edit</Link>
+                      <Link href={editPostPath(id)}><MoveUpRight/>Edit</Link>
                   </Button>
                   </CardContent>
               )

@@ -1,21 +1,26 @@
-'use server'
+"use server";
 
-import { POSTS } from "@/lib/path"
-import { prisma } from "@/lib/prisma"
-import { revalidatePath } from "next/cache"
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import { actionClient } from "@/lib/safe-action";
+import { postsPath } from "@/path";
+import { postCreateSchema } from "../schemas/post-create-schema";
 
-export const createPost = async (formData: FormData) => {
-    const data = {
-        title: formData.get('title') as string,
-        body: formData.get('body') as string
-    }
-    console.log(data)
+export const createPost = actionClient
+  .inputSchema(postCreateSchema)
+  .action(async ({ parsedInput }) => {
+    const { title, body } = parsedInput;
 
-    if (!data.title || !data.body) {
-        throw new Error("Title and body are required.")
-    }
     await prisma.post.create({
-        data
-    })
-    revalidatePath(POSTS)
-}
+      data: {
+        title,
+        body,
+      },
+    });
+
+    revalidatePath(postsPath);
+
+    return {
+      success: true,
+    };
+  });

@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -33,7 +34,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col  max-w-4xl  mx-auto px-8 py-4 lg:px-0">
+      <body>
        
          <ThemeProvider
             attribute="class"
@@ -41,8 +42,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-             <Header/>
+          <main className="max-w-4xl mx-auto px-8 lg:px-0">
+            <Toaster position="top-right" richColors/>
+            <Header/>
             {children}
+             </main>
           </ThemeProvider></body>
     </html>
   );

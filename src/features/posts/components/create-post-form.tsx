@@ -1,41 +1,104 @@
-
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+'use client'
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { createPost } from "@/features/posts/actions/create-post";
+import { useAction } from "next-safe-action/hooks";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupTextarea,
+} from "@/components/ui/input-group";
+import CardWrapper from "./card-wrapper";
+import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { postCreateSchema } from "../schemas/post-create-schema";
+
 const CreatePostForm = () => {
+  const { execute, isExecuting, hasSucceeded } = useAction(createPost);
+
+  const form = useForm<z.infer<typeof postCreateSchema>>({
+    resolver: zodResolver(postCreateSchema),
+    defaultValues: {
+      title: "",
+      body: "",
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof postCreateSchema>) {
+    const { title, body } = data;
+    await execute({title, body});
+  }
+
+  useEffect(() => {
+    if (hasSucceeded) {
+      form.reset()
+      toast.success('Post create successfully.')
+    }
+  },[form, hasSucceeded])
 
   return (
-    <Card>
-        <CardHeader>
-          <CardTitle>Create new post</CardTitle>
-          <CardDescription>This will be create new post</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form action={createPost} className="space-y-2">
-            <div>
-              <Label htmlFor="title">Title</Label>
-              <Input type="text" id="title" name="title" />
-            </div>
+    <CardWrapper
+      title="Create new post"
+      description="This will be create a new post"
+    >
+      <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FieldGroup>
+          <Controller
+            name="title"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-title">Title</FieldLabel>
+                <Input
+                  {...field}
+                  id="form-rhf-demo-title"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="post title"
+                  autoComplete="off"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="body"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-description">
+                  Description
+                </FieldLabel>
+                <InputGroup>
+                  <InputGroupTextarea
+                    {...field}
+                    id="form-rhf-demo-description"
+                    placeholder="post description"
+                    rows={6}
+                    className="min-h-24 resize-none"
+                    aria-invalid={fieldState.invalid}
+                  />
+                </InputGroup>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        </FieldGroup>
+        <Button type="submit" disabled={isExecuting}> Create</Button>
+      </form>
+    </CardWrapper>
+  );
+};
 
-            <div>
-              <label htmlFor="body">Description</label>
-              <Textarea id="body" name="body"></Textarea>
-            </div>
-
-          <Button type="submit">Create</Button>
-          </form>
-        </CardContent>
-      </Card>
-  )
-}
-
-export default CreatePostForm
+export default CreatePostForm;
