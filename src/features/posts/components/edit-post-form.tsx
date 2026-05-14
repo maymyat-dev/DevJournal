@@ -37,7 +37,7 @@ type EditPostFormProps = {
 };
 
 const EditPostForm = ({ post }: EditPostFormProps) => {
-  const { execute, isExecuting, hasSucceeded } = useAction(updatePost);
+  const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(updatePost);
 
   const form = useForm<z.infer<typeof postUpdateSchema>>({
     resolver: zodResolver(postUpdateSchema),
@@ -58,7 +58,10 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
     if (hasSucceeded) {
       toast.success("Post update successfully.");
     }
-  }, [hasSucceeded]);
+    if (hasErrored) {
+      toast.error("Error update post.");
+    }
+  }, [hasSucceeded, hasErrored]);
 
   return (
     <CardWrapper title="Update post" description="This will be update post.">

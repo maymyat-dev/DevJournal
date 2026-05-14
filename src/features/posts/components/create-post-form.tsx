@@ -22,7 +22,7 @@ import { toast } from "sonner";
 import { postCreateSchema } from "../schemas/post-create-schema";
 
 const CreatePostForm = () => {
-  const { execute, isExecuting, hasSucceeded } = useAction(createPost);
+  const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(createPost);
 
   const form = useForm<z.infer<typeof postCreateSchema>>({
     resolver: zodResolver(postCreateSchema),
@@ -42,7 +42,10 @@ const CreatePostForm = () => {
       form.reset()
       toast.success('Post create successfully.')
     }
-  },[form, hasSucceeded])
+    if (hasErrored) {
+      toast.error("Error deleting post")
+    }
+  },[form, hasSucceeded, hasErrored])
 
   return (
     <CardWrapper

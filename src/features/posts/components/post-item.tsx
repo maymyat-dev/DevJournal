@@ -8,15 +8,13 @@ import { cn } from '@/lib/utils'
 import { deletePost } from '../actions/delete-post'
 import { Post } from '../../../../generated/prisma/client'
 import { Badge } from '@/components/ui/badge'
+import DeleteButton from './delete-button'
 
 interface Props extends Post {
     isCard?: boolean
 }
 
 function PostItem({ id, title, body, isCard = true, status }: Props) {
-    const deletePostHandler = async () => {
-        await deletePost(id as string);
-    }
   return (
       <Card className='relative'>
           <Badge className='absolute top-4 right-4' variant={status === "IN_PROGRESS" ? "outline" : "default"} >{status}</Badge>
@@ -38,9 +36,7 @@ function PostItem({ id, title, body, isCard = true, status }: Props) {
           }
           {
               !isCard && (
-                  <CardFooter>
-                      <Button variant="destructive" size="sm" onClick={deletePostHandler}>Delete</Button>
-                  </CardFooter>
+                  <DeleteButton id={id} />
               )
           }
           
