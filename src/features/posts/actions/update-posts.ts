@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 export const updatePost = actionClient
   .inputSchema(postUpdateSchema)
   .action(async ({ parsedInput }) => {
-    const { id, title, body } = parsedInput;
+    const { id, title, body, status } = parsedInput;
 
     await prisma.post.update({
       where: {
@@ -19,6 +19,7 @@ export const updatePost = actionClient
       data: {
         title,
         body,
+        status
       },
     });
 
