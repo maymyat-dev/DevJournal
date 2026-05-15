@@ -15,7 +15,7 @@ import {
   InputGroup,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import CardWrapper from "./card-wrapper";
+import CardWrapper from "../../../components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -52,7 +52,7 @@ const CreatePostForm = () => {
       title="Create new post"
       description="This will be create a new post"
     >
-      <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
           <Controller
             name="title"
@@ -98,7 +98,7 @@ const CreatePostForm = () => {
             )}
           />
         </FieldGroup>
-        <Button type="submit" disabled={isExecuting}> Create</Button>
+        <Button className="w-full mt-5" type="submit" disabled={isExecuting}> Create</Button>
       </form>
     </CardWrapper>
   );

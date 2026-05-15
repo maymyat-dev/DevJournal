@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { updatePost } from "../actions/update-posts";
-import CardWrapper from "./card-wrapper";
+import CardWrapper from "../../../components/card-wrapper";
 import { postUpdateSchema } from "../schemas/post-update-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -81,7 +81,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                   {...field}
                   id="form-rhf-demo-title"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Login button not working on mobile"
+                  placeholder="Post title"
                   autoComplete="off"
                 />
                 {fieldState.invalid && (

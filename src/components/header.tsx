@@ -7,8 +7,8 @@ import { BookOpenText } from "lucide-react";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl mb-5">
+      <div className="container mx-auto flex h-16 items-center justify-between">
 
         <Link
           href="/"
@@ -40,7 +40,7 @@ function Header() {
 
         <div className="flex items-center gap-3">
           <ModeToggle />
-          <LoginAndRegister />
+          <SignInAndSignUpButton />
         </div>
       </div>
     </header>
@@ -49,7 +49,7 @@ function Header() {
 
 export default Header;
 
-function LoginAndRegister() {
+function SignInAndSignUpButton() {
   return (
     <div className="flex items-center gap-2">
       <Button variant="outline" asChild>
@@ -57,7 +57,7 @@ function LoginAndRegister() {
       </Button>
 
       <Button className="rounded-xl px-5" asChild>
-        <Link href={registerPath}>Get Started</Link>
+        <Link href={registerPath}>Sign up</Link>
       </Button>
     </div>
   );
