@@ -2,25 +2,24 @@
 
 import { auth } from "@/lib/auth"
 import { actionClient } from "@/lib/safe-action"
-import { signUpSchema } from "../schemas"
-import { loginPath } from "@/path"
+import { signInSchema } from "../schemas"
 import { redirect } from "next/navigation"
+import { postsPath } from "@/path"
 import { revalidatePath } from "next/cache"
 
-export const signUp = actionClient.inputSchema(signUpSchema).action(async ({ parsedInput: {name, email, password} }) => {
+export const signIn = actionClient.inputSchema(signInSchema).action(async ({ parsedInput: { email, password} }) => {
     try {
-        await auth.api.signUpEmail({
+        await auth.api.signInEmail({
             body: {
-                name,
                 email,
                 password
             }
         })
-       
+        
     }
     catch (error) {
         throw new Error("signUp: " + error)
     }
-    revalidatePath(loginPath);
-    redirect(loginPath);
+    revalidatePath(postsPath);
+    redirect(postsPath);
 })

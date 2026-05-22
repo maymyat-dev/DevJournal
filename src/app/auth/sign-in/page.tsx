@@ -1,9 +1,9 @@
 import AuthImage from "@/features/auth/components/auth-image";
-import { SignUpForm } from "@/features/auth/components/signup-form";
 import AuthImageSrc from "../../../../public/auth-image.jpg";
 import Link from "next/link";
+import { SignInForm } from "@/features/auth/components/signin-form";
 
-const SignUp = () => {
+const SignIn = () => {
   return (
     <section className="flex min-h-screen items-center justify-center">
       <div className="grid w-full overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm lg:grid-cols-2 dark:border-zinc-800 dark:bg-zinc-950">
@@ -33,7 +33,7 @@ const SignUp = () => {
           <div className="w-full max-w-md">
             <div className="mb-2">
               <h2 className="text-3xl font-semibold tracking-tight">
-                Create account
+                Login Account
               </h2>
 
               <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
@@ -41,12 +41,12 @@ const SignUp = () => {
               </p>
             </div>
 
-            <SignUpForm />
+            <SignInForm />
 
             <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-              Already have an account?
+            If you don&apos;t have an account, 
               <span className="cursor-pointer font-medium text-black transition hover:opacity-70 dark:text-white">
-                <Link href="/auth/sign-in">Sign in</Link>
+                <Link href="/auth/sign-up">Sign up</Link>
               </span>
             </p>
           </div>
@@ -56,4 +56,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

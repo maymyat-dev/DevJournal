@@ -1,7 +1,5 @@
-import z from "zod";
+
 import { authBaseSchema } from "./auth-base";
 
 
-export const signInSchema = z.object({
-    ...authBaseSchema
-})
+export const signInSchema = authBaseSchema;

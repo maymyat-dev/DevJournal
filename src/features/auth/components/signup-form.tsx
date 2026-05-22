@@ -58,7 +58,8 @@ export function SignUpForm() {
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-rhf-demo-title"
+                    id="name"
+                    type="text"
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your name"
                     autoComplete="off"
@@ -79,7 +80,8 @@ export function SignUpForm() {
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-rhf-demo-title"
+                    id="email"
+                    type="email"
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your email"
                     autoComplete="off"
@@ -101,7 +103,8 @@ export function SignUpForm() {
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-rhf-demo-title"
+                    id="password"
+                    type="password"
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your password"
                     autoComplete="off"
@@ -122,7 +125,8 @@ export function SignUpForm() {
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-rhf-demo-title"
+                    type = "password"
+                    id="confirmPassword"
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter your confirmPassword"
                     autoComplete="off"
