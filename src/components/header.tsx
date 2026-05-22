@@ -4,14 +4,11 @@ import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { BookOpenText, LogOut } from "lucide-react";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import { signOut } from "@/features/auth/actions/signout";
+import { getSession } from "@/lib/getSession";
 
 async function Header() {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  })
+  const session = await getSession()
   return (
     <header className="sticky top-0 z-50 mb-5 border-b border-border/40 bg-background/80 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between">
