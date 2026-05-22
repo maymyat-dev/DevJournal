@@ -1,11 +1,17 @@
 
-import { aboutPath, loginPath, postsPath, registerPath } from "@/path";
+import { loginPath, postsPath, registerPath } from "@/path";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import { BookOpenText } from "lucide-react";
+import { BookOpenText, LogOut } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-function Header() {
+async function Header() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+  console.log(session)
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl mb-5">
       <div className="container mx-auto flex h-16 items-center justify-between">
@@ -33,14 +39,13 @@ function Header() {
             <Link href={postsPath}>Posts</Link>
           </Button>
 
-          <Button variant="ghost" asChild>
-            <Link href={aboutPath}>About</Link>
-          </Button>
         </nav>
 
         <div className="flex items-center gap-3">
           <ModeToggle />
-          <SignInAndSignUpButton />
+          {
+            session ? <SignOutButton/> : <SignInAndSignUpButton/>
+          }
         </div>
       </div>
     </header>
@@ -52,11 +57,11 @@ export default Header;
 function SignInAndSignUpButton() {
   return (
     <div className="flex items-center gap-2">
-      <Button variant="outline" asChild>
+      <Button variant="ghost" className="rounded-lg font-medium" asChild>
         <Link href={loginPath}>Sign in</Link>
       </Button>
 
-      <Button className="rounded-xl px-5" asChild>
+      <Button className="rounded-lg px-5 font-medium shadow-sm shadow-primary/20 transition-all duration-200 hover:shadow-md active:scale-95" asChild>
         <Link href={registerPath}>Sign up</Link>
       </Button>
     </div>
@@ -65,8 +70,14 @@ function SignInAndSignUpButton() {
 
 function SignOutButton() {
   return (
-    <div>
-      <Button variant="destructive">Sign out</Button>
+    <div className="flex items-center gap-2">
+      <Button 
+        variant="outline" 
+        className="rounded-lg gap-2 border-muted-foreground/20 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all duration-200 active:scale-95"
+      >
+        <LogOut className="h-4 w-4" />
+        <span className="hidden sm:inline font-medium">Sign out</span>
+      </Button>
     </div>
   );
 }
