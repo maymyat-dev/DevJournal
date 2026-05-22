@@ -6,14 +6,14 @@ import { Button } from "./ui/button";
 import { BookOpenText, LogOut } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { signOut } from "@/features/auth/actions/signout";
 
 async function Header() {
   const session = await auth.api.getSession({
     headers: await headers()
   })
-  console.log(session)
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl mb-5">
+    <header className="sticky top-0 z-50 mb-5 border-b border-border/40 bg-background/80 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between">
 
         <Link
@@ -70,14 +70,15 @@ function SignInAndSignUpButton() {
 
 function SignOutButton() {
   return (
-    <div className="flex items-center gap-2">
+    <form action={signOut} className="flex items-center gap-2">
       <Button 
+        type="submit"
         variant="outline" 
         className="rounded-lg gap-2 border-muted-foreground/20 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all duration-200 active:scale-95"
       >
         <LogOut className="h-4 w-4" />
         <span className="hidden sm:inline font-medium">Sign out</span>
       </Button>
-    </div>
+    </form>
   );
 }
