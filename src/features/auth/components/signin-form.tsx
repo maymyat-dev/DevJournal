@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { signIn } from "../actions/signin";
 import Link from "next/link";
 import { resetPasswordPath } from "@/path";
+import GithubOauthButton from "./github-oauth-button";
 
 export function SignInForm() {
   const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(signIn);
@@ -96,6 +97,7 @@ export function SignInForm() {
           {isExecuting ? "Signing in..." : "Login"}
         </Button>
       </form>
+      <GithubOauthButton/>
     </CardWrapper>
   );
 }

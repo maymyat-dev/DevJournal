@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button"
 import { useAction } from "next-safe-action/hooks"
 import { signUp } from "../actions/signup"
 import { toast } from "sonner"
+import GithubOauthButton from "./github-oauth-button";
 
 export function SignUpForm() {
   const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(signUp);
@@ -141,7 +142,8 @@ export function SignUpForm() {
                       
           </FieldGroup>
         <Button className="w-full mt-5" disabled={isExecuting} >Register</Button>
-        </form>
+      </form>
+      <GithubOauthButton/>
     </CardWrapper>
   )
 }
