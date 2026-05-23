@@ -11,17 +11,10 @@ const SignIn = () => {
 
         <div className="flex items-center justify-center px-6 py-6">
           <div className="w-full max-w-md">
-            <div className="mb-2">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Login Account
-              </h2>
-
-              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
-                Start writing and exploring today.
-              </p>
-            </div>
 
             <SignInForm />
+
+
 
             <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
             If you don&apos;t have an account, 

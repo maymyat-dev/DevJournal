@@ -45,7 +45,7 @@ export function SignUpForm() {
   }, [form, hasSucceeded, hasErrored])
   
   return (
-    <CardWrapper title="Update post" description="This will be update post.">
+    <CardWrapper title="Create account" description="Register with email and password">
       <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)} >
           <FieldGroup>
             <Controller
