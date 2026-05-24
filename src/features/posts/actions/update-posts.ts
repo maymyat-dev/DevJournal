@@ -7,6 +7,7 @@ import { postUpdateSchema } from "../schemas/post-update-schema";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/getSession";
+import { isOwner } from "@/lib/isOwner";
 
 export const updatePost = actionClient
   .inputSchema(postUpdateSchema)
@@ -17,6 +18,12 @@ export const updatePost = actionClient
     
         if (!session) {
           redirect(loginPath);
+    }
+    
+      const owner = await isOwner(session.user.id);
+    
+        if (!owner) {
+          throw new Error("You are not authorized to delete this post");
         }
 
     await prisma.post.update({

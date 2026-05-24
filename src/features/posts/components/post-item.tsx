@@ -9,6 +9,7 @@ import { Post, User } from '../../../../generated/prisma/client'
 import { Badge } from '@/components/ui/badge'
 import DeleteButton from './delete-button'
 import { getSession } from '@/lib/getSession'
+import { isOwner } from '@/lib/isOwner'
 
 interface Props extends Post {
     isCard?: boolean
@@ -32,7 +33,7 @@ async function PostItem({ id, title, body, isCard = true, status, user }: Props)
                       <Link href={singlePostPath(id)}><MoveUpRight/>Read</Link>
                       </Button>
                       {
-                          session?.user.id === user.id && (
+                         await isOwner(user.id) && (
                               <Button variant="outline" size="sm" asChild >
                               <Link href={editPostPath(id)}><MoveUpRight/>Edit</Link>
                               </Button>
@@ -43,8 +44,10 @@ async function PostItem({ id, title, body, isCard = true, status, user }: Props)
           }
           
           {
-              !isCard && (
-                  <DeleteButton id={id} />
+              !isCard && (await isOwner(user.id)) && (
+                  <CardContent className='space-x-4'>
+                      <DeleteButton id={id} />
+                  </CardContent>
               )
           }
           
