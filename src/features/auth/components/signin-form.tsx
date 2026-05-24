@@ -18,11 +18,12 @@ import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 import { signIn } from "../actions/signin";
 import Link from "next/link";
-import { resetPasswordPath } from "@/path";
+import { loginPath, postsPath, resetPasswordPath } from "@/path";
 import GithubOauthButton from "./github-oauth-button";
+import { redirect } from "next/navigation";
 
 export function SignInForm() {
-  const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(signIn);
+  const { execute, isExecuting, result } = useAction(signIn);
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -37,13 +38,16 @@ export function SignInForm() {
     execute({ email, password });
   }
   useEffect(() => {
-    if (hasSucceeded) {
-      toast.success("Login successfully.");
+    const data = result?.data;
+
+    if (data?.success) {
+      toast.success("Sign in successfully.");
+      redirect(postsPath);
     }
-    if (hasErrored) {
-      toast.error("Error login.");
-    }
-  }, [form, hasSucceeded, hasErrored]);
+    if (data?.error) {
+      toast.error(data.error);
+    } 
+  }, [result]);
 
   return (
     <CardWrapper title="Sign in" description="Sign in your account">
@@ -89,7 +93,7 @@ export function SignInForm() {
               </Field>
             )}
           />
-          <Link href={resetPasswordPath} className="text-sm text-right">
+          <Link href={resetPasswordPath} className="text-xs text-right hover:underline font-semibold">
             Forgot Password?
           </Link>
         </FieldGroup>

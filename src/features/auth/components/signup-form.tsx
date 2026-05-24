@@ -18,9 +18,11 @@ import { useAction } from "next-safe-action/hooks"
 import { signUp } from "../actions/signup"
 import { toast } from "sonner"
 import GithubOauthButton from "./github-oauth-button";
+import { redirect } from "next/navigation";
+import { loginPath } from "@/path";
 
 export function SignUpForm() {
-  const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(signUp);
+  const { execute, isExecuting, result } = useAction(signUp);
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -37,13 +39,16 @@ export function SignUpForm() {
     execute({ name, email, password, confirmPassword})
   }
   useEffect(() => {
-   if(hasSucceeded) {
-    toast.success("Sign up successfully.");
-   }
-   if(hasErrored) {
-    toast.error("Error sign up.");
-   }
-  }, [form, hasSucceeded, hasErrored])
+    const data = result?.data;
+
+    if (data?.success) {
+      toast.success("Sign up successfully.");
+      redirect (loginPath)
+    } 
+    if (data?.error) {
+      toast.error(data.error);
+    }
+  }, [ result ]);
   
   return (
     <CardWrapper title="Create account" description="Register with email and password">
