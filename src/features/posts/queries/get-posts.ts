@@ -5,23 +5,51 @@ import { SearchParams } from "../types/search-params";
 interface postWithUser extends Post {
   user: User;
 }
+
+interface PaginatedPosts {
+  posts: postWithUser[];
+  totalPages: number;
+  currentPage: number;
+}
+
 export const getPosts = async (
   userId: string | undefined,
-  searchParams: SearchParams
-): Promise<postWithUser[]> => {
-  return prisma.post.findMany({
-    orderBy: {
-      createdAt: "desc",
+  searchParams: SearchParams,
+): Promise<PaginatedPosts> => {
+  const POSTS_PER_PAGE = 2;
+  const currentPage = Number(searchParams.page) || 1;
+  const skip = (currentPage - 1) * POSTS_PER_PAGE;
+
+  const whereCondition = {
+    userId,
+    title: {
+      contains: searchParams.search,
+      mode: "insensitive" as const,
     },
-    where: {
-      userId,
-      title: {
-        contains: searchParams.search,
-        mode: "insensitive",
+  };
+
+
+  const [totalCount, posts] = await prisma.$transaction([
+    prisma.post.count({
+      where: whereCondition,
+    }),
+    prisma.post.findMany({
+      orderBy: {
+        createdAt: searchParams.sort?.toString() === "asc" ? "asc" : "desc",
       },
-    },
-    include: {
-      user: true,
-    },
-  });
+      where: whereCondition,
+      include: {
+        user: true,
+      },
+      skip,
+      take: POSTS_PER_PAGE,
+    }),
+  ]);
+  const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
+
+  return {
+    posts,
+    totalPages,
+    currentPage
+  };
 };

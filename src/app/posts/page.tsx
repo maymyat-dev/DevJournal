@@ -5,8 +5,14 @@ import { Suspense } from "react";
 import { getSession } from '@/lib/getSession';
 import { loginPath } from '@/path';
 import { redirect } from 'next/navigation';
+import { SearchParams } from "@/features/posts/types/search-params";
 
-async function page() {
+type Props = {
+  searchParams: Promise<SearchParams>;
+}
+
+async function page({ searchParams }: Props) {
+  const params = await searchParams;
    const session = await getSession();
  
   if(!session) {
@@ -19,7 +25,7 @@ async function page() {
       
       <CreatePostForm/>
       <Suspense fallback={<div>Loading...</div>}>
-        <PostList userId={session.user.id} />
+        <PostList userId={session.user.id} searchParams={params} />
       </Suspense>
       <div></div>
     </main>

@@ -15,11 +15,16 @@ export const deletePost = actionClient
       redirect(loginPath)
     }
 
-    const owner = await isOwner(session.user.id);
+    const post = await prisma.post.findUnique({
+      where: {id}
+    })
 
-    if (!owner) {
+    
+    if (!post || !(await isOwner(post.userId))) {
       throw new Error("You are not authorized to delete this post");
     }
+
+
     await prisma.post.delete({
       where: {
       id
