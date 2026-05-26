@@ -7,8 +7,8 @@ import { Suspense } from "react";
 type Props = {
   searchParams: Promise<SearchParams>;
 }
-async function page({ searchParams }: Props) {
-  const params = await (await searchParams);
+async function Page({ searchParams }: Props) {
+  const params = await searchParams;
   return (
     <main>
       <Heading title="All Posts" description="View all posts" />
@@ -20,4 +20,4 @@ async function page({ searchParams }: Props) {
   );
 }
 
-export default page;
+export default Page;
