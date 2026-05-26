@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 import { Post, User } from '../../../../generated/prisma/client'
 import { Badge } from '@/components/ui/badge'
 import DeleteButton from './delete-button'
-import { getSession } from '@/lib/getSession'
 import { isOwner } from '@/lib/isOwner'
 
 interface Props extends Post {
@@ -17,14 +16,14 @@ interface Props extends Post {
 }
 
 async function PostItem({ id, title, body, isCard = true, status, user }: Props) {
-    const session = await getSession();
+
   return (
       <Card className='relative'>
           <Badge className='absolute top-4 right-4' variant={status === "IN_PROGRESS" ? "outline" : "default"} >{status}</Badge>
           <CardHeader>
               <CardTitle>{title}</CardTitle>
               <CardDescription className={cn(isCard && "line-clamp-2")}>{body}</CardDescription>
-              <p>{session?.user.name}</p>
+              <p>{user.name}</p>
           </CardHeader>
           {
               isCard && (
