@@ -20,10 +20,11 @@ import { signIn } from "../actions/signin";
 import Link from "next/link";
 import { loginPath, postsPath, resetPasswordPath } from "@/path";
 import GithubOauthButton from "./github-oauth-button";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export function SignInForm() {
   const { execute, isExecuting, result } = useAction(signIn);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -42,7 +43,8 @@ export function SignInForm() {
 
     if (data?.success) {
       toast.success("Sign in successfully.");
-      redirect(postsPath);
+      router.push("/")
+      router.refresh();
     }
     if (data?.error) {
       toast.error(data.error);

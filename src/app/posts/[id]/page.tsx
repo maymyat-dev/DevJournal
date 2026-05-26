@@ -9,6 +9,7 @@ async function SinglePost({ params }: Props) {
     const post = await getPost(id);
     
     
+    
     if (!post) {
         return <h2>Post not found.</h2>
     }

@@ -1,5 +1,19 @@
-import Heading from "@/components/heading"
+import Heading from "@/components/heading";
+import PostList from "@/features/posts/components/post-list";
+import { Suspense } from "react";
 
-export default function Home() {
-  return <Heading title="Home Page" description="This is home page." />
+function page() {
+
+  return (
+    <main>
+      <Heading title="All Posts" description="View all posts" />
+      
+      <Suspense fallback={<div>Loading...</div>}>
+        <PostList />
+      </Suspense>
+      <div></div>
+    </main>
+  );
 }
+
+export default page;

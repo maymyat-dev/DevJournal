@@ -1,8 +1,14 @@
 import PostItem from '@/features/posts/components/post-item'
 import { getPosts } from '../queries/get-posts';
 
-async function PostList() {
-   const posts = await getPosts();
+interface Props {
+  userId?: string | undefined
+}
+async function PostList({userId= undefined  }: Props) {
+  
+
+  const posts = await getPosts(userId);
+
   return (
       <div className='mt-5'>
           {
