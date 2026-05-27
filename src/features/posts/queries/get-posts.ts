@@ -16,6 +16,7 @@ export const getPosts = async (
   userId: string | undefined,
   searchParams: SearchParams,
 ): Promise<PaginatedPosts> => {
+  
   const POSTS_PER_PAGE = 2;
   const currentPage = Number(searchParams.page) || 1;
   const skip = (currentPage - 1) * POSTS_PER_PAGE;

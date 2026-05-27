@@ -11,6 +11,7 @@ const SearchInput = ({ placeholder }: Props) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  
     const handleSearch = useDebouncedCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
