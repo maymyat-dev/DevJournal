@@ -17,7 +17,7 @@ async function SinglePost({ params }: Props) {
 
     return <>
         <PostItem {...post} isCard={false} />
-        <Comments/>
+        <Comments postId={post.id}/>
     </>
 }
 

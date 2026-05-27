@@ -31,7 +31,7 @@ const CreateCommentForm = () => {
     resolver: zodResolver(commentCreateSchema),
     defaultValues: {
         content: '',
-        postId: ''
+        postId: params.id as string 
     },
   });
 
