@@ -1,3 +1,4 @@
+import Comments from "@/features/comment/components/comments";
 import PostItem from "@/features/posts/components/post-item";
 import { getPost } from "@/features/posts/queries/get-post";
 interface Props  {
@@ -14,7 +15,10 @@ async function SinglePost({ params }: Props) {
         return <h2>Post not found.</h2>
     }
 
-    return <PostItem {...post} isCard={false} />
+    return <>
+        <PostItem {...post} isCard={false} />
+        <Comments/>
+    </>
 }
 
 export default SinglePost
