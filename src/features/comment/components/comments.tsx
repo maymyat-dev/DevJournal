@@ -10,11 +10,12 @@ const Comments = async({ postId }: CommentsProps) => {
   const comments = await getComments(postId);
   console.log(comments)
   return (
-    <div className="mt-5">
+    <div className="mt-5 space-y-5">
       <CreateCommentForm />
-      <div>
+      <div className="space-y-5">
         {comments.length > 0 && comments.map((comment)=> <CommentItem key={comment.id} comment={comment}  />)}
       </div>
+      
     </div>
   )
 }

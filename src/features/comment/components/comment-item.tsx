@@ -1,5 +1,6 @@
 import React from 'react'
 import { CommentWithUsername } from "../types/comment-username";
+import CommentDeleteButton from './comment-delete-button';
 
 interface CommentItemProps {
   comment: CommentWithUsername;
@@ -17,7 +18,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
 
       <div className="flex-1 space-y-1">
         <div className="flex items-center justify-between">
-          {/* User Name */}
+
           <span className="text-sm font-medium">
             {comment.user?.name || "Anonymous"}
           </span>
@@ -35,6 +36,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
           {comment.content}
         </p>
       </div>
+      <CommentDeleteButton id={comment.id}/>
 
     </div>
   )

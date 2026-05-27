@@ -53,7 +53,7 @@ const CreateCommentForm = () => {
   return (
     <CardWrapper
       title="Create new comment"
-      description="This will be create a new comment for this post"
+      description="Share your thoughts"
     >
       <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup>
@@ -70,7 +70,7 @@ const CreateCommentForm = () => {
                   <InputGroupTextarea
                     {...field}
                     id="form-rhf-demo-description"
-                    placeholder="post description"
+                    placeholder="Write a comment..."
                     rows={6}
                     className="min-h-24 resize-none"
                     aria-invalid={fieldState.invalid}
@@ -83,7 +83,14 @@ const CreateCommentForm = () => {
             )}
           />
         </FieldGroup>
-        <Button className="w-full mt-5" type="submit" disabled={isExecuting}> Create</Button>
+        <div className="flex justify-end pt-5">
+      <Button 
+        type="submit" 
+        disabled={isExecuting}
+      >
+        {isExecuting ? "Posting..." : "Post Comment"}
+      </Button>
+    </div>
       </form>
     </CardWrapper>
   );
