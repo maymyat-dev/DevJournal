@@ -13,13 +13,13 @@ import {
 } from "@/components/ui/field";
 import {
   InputGroup,
-  InputGroupTextarea,
 } from "@/components/ui/input-group";
 import CardWrapper from "../../../components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { postCreateSchema } from "../schemas/post-create-schema";
+import RichTextEditor from "@/components/rich-text-editor";
 
 const CreatePostForm = () => {
   const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(createPost);
@@ -43,7 +43,7 @@ const CreatePostForm = () => {
       toast.success('Post create successfully.')
     }
     if (hasErrored) {
-      toast.error("Error deleting post")
+      toast.error("Failed to create post")
     }
   },[form, hasSucceeded, hasErrored])
 
@@ -79,18 +79,9 @@ const CreatePostForm = () => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="form-rhf-demo-description">
-                  Description
+                  Content
                 </FieldLabel>
-                <InputGroup>
-                  <InputGroupTextarea
-                    {...field}
-                    id="form-rhf-demo-description"
-                    placeholder="post description"
-                    rows={6}
-                    className="min-h-24 resize-none"
-                    aria-invalid={fieldState.invalid}
-                  />
-                </InputGroup>
+                <RichTextEditor value={field.value} onChange={field.onChange}  />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

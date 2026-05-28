@@ -31,6 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import RichTextEditor from "@/components/rich-text-editor";
 
 type EditPostFormProps = {
   post: Post;
@@ -96,23 +97,9 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="form-rhf-demo-description">
-                  Description
+                  Content
                 </FieldLabel>
-                <InputGroup>
-                  <InputGroupTextarea
-                    {...field}
-                    id="form-rhf-demo-description"
-                    placeholder="I'm having an issue with the login button on mobile."
-                    rows={6}
-                    className="min-h-24 resize-none"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  <InputGroupAddon align="block-end">
-                    <InputGroupText className="tabular-nums">
-                      {field.value.length}/100 characters
-                    </InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
+                <RichTextEditor value={field.value} onChange={field.onChange}  />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
