@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor";
+import TagInput from "./tag-input";
 
 type EditPostFormProps = {
   post: Post;
@@ -47,12 +48,13 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
       title: post.title,
       body: post.body,
       status: post.status,
+      tags: post.tags ?? [],
     },
   });
 
   async function onSubmit(data: z.infer<typeof postUpdateSchema>) {
-    const { id, title, body, status } = data;
-    await execute({ id, title, body, status });
+    const { id, title, body, status, tags } = data;
+    await execute({ id, title, body, status, tags });
   }
 
   useEffect(() => {
@@ -100,6 +102,21 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                   Content
                 </FieldLabel>
                 <RichTextEditor value={field.value} onChange={field.onChange}  />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="tags"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-description">
+                  Tag
+                </FieldLabel>
+                <TagInput value={field.value || []} onChange={field.onChange} />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

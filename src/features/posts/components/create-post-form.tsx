@@ -11,15 +11,13 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import {
-  InputGroup,
-} from "@/components/ui/input-group";
 import CardWrapper from "../../../components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { postCreateSchema } from "../schemas/post-create-schema";
 import RichTextEditor from "@/components/rich-text-editor";
+import TagInput from "./tag-input";
 
 const CreatePostForm = () => {
   const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(createPost);
@@ -29,12 +27,13 @@ const CreatePostForm = () => {
     defaultValues: {
       title: "",
       body: "",
+      tags: [],
     },
   });
 
   async function onSubmit(data: z.infer<typeof postCreateSchema>) {
-    const { title, body } = data;
-    await execute({title, body});
+    const { title, body, tags } = data;
+    await execute({title, body, tags});
   }
 
   useEffect(() => {
@@ -82,6 +81,21 @@ const CreatePostForm = () => {
                   Content
                 </FieldLabel>
                 <RichTextEditor value={field.value} onChange={field.onChange}  />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="tags"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-description">
+                  Tags
+                </FieldLabel>
+                <TagInput value={field.value} onChange={field.onChange} />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

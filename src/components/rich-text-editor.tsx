@@ -12,6 +12,7 @@ import {
   Code2,
 } from "lucide-react";
 import { Toggle } from "./ui/toggle";
+import { useEffect } from "react";
 interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
@@ -131,6 +132,12 @@ const RichTextEditor = ({ value, onChange }: RichTextEditorProps) => {
     },
     immediatelyRender: false,
   });
+
+useEffect(() => {
+  if (editor && value !== editor.getHTML()) {
+    editor.commands.setContent(value);
+  }
+}, [value, editor]);
 
   return (
     <div className="w-full">

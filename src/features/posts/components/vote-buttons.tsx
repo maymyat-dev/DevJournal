@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useState, useTransition } from "react";
+import { voteOnPost } from "../actions/vote-post";
 
 interface VoteButtonProps {
   postId: string;
@@ -31,7 +32,7 @@ const VoteButtons = ({
 
     startTransition(async () => {
       try {
-
+        await voteOnPost(postId, value);
       } catch(err) {
         setScore(score)
         setUserVote(userVote)

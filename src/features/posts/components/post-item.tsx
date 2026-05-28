@@ -31,6 +31,7 @@ async function PostItem({
   status,
   user,
   votes,
+  tags
 }: Props) {
 
   const session = await getSession();
@@ -55,7 +56,12 @@ async function PostItem({
           className={cn(isCard && "line-clamp-2", "prose dark:prose-invert prose-sm sm:prose-base max-w-none" )}
           dangerouslySetInnerHTML={{ __html: body }}
         />
-        <p>{user.name}</p>
+        {
+          tags && tags.length > 0 && <div>
+            {tags.map(tag=> <Link key={tag} href={`/?tag=${tag}`}><Badge variant={"outline"} className="cursor-pointer hover:bg-secondary" >#{tag}</Badge></Link>)}
+          </div>
+        }
+        <p>@{user.name}</p>
         <div>
           <VoteButtons postId={id} initialScore={score} initialUserVote={userVote} />
         </div>
