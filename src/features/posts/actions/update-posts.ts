@@ -12,7 +12,7 @@ import { isOwner } from "@/lib/isOwner";
 export const updatePost = actionClient
   .inputSchema(postUpdateSchema)
   .action(async ({ parsedInput }) => {
-    const { id, title, body, status, tags = [] } = parsedInput;
+    const { id, title, body, status, images = [], tags = [] } = parsedInput;
 
    const session = await getSession();
     
@@ -37,6 +37,7 @@ export const updatePost = actionClient
         title,
         body,
         status,
+        images,
         tags
       },
     });
