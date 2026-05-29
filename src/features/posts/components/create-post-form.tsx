@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { postCreateSchema } from "../schemas/post-create-schema";
 import RichTextEditor from "@/components/rich-text-editor";
 import TagInput from "./tag-input";
+import ImageUpload from "./image-upload";
 
 const CreatePostForm = () => {
   const { execute, isExecuting, hasSucceeded, hasErrored } = useAction(createPost);
@@ -27,13 +28,14 @@ const CreatePostForm = () => {
     defaultValues: {
       title: "",
       body: "",
+      images: [],
       tags: [],
     },
   });
 
   async function onSubmit(data: z.infer<typeof postCreateSchema>) {
-    const { title, body, tags } = data;
-    await execute({title, body, tags});
+    const { title, body, images, tags } = data;
+    await execute({title, body, images, tags});
   }
 
   useEffect(() => {
@@ -81,6 +83,21 @@ const CreatePostForm = () => {
                   Content
                 </FieldLabel>
                 <RichTextEditor value={field.value} onChange={field.onChange}  />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="images"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-description">
+                  Images
+                </FieldLabel>
+                <ImageUpload value={field.value || [] } onChange={field.onChange} max={4} />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

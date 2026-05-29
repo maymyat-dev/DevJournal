@@ -16,6 +16,7 @@ import DeleteButton from "./delete-button";
 import { isOwner } from "@/lib/isOwner";
 import { getSession } from "@/lib/getSession";
 import VoteButtons from "./vote-buttons";
+import PostImages from "./post-images";
 
 interface Props extends Post {
   isCard?: boolean;
@@ -29,6 +30,7 @@ async function PostItem({
   body,
   isCard = true,
   status,
+  images,
   user,
   votes,
   tags
@@ -56,6 +58,7 @@ async function PostItem({
           className={cn(isCard && "line-clamp-2", "prose dark:prose-invert prose-sm sm:prose-base max-w-none" )}
           dangerouslySetInnerHTML={{ __html: body }}
         />
+        <PostImages images={images} />
         {
           tags && tags.length > 0 && <div>
             {tags.map(tag=> <Link key={tag} href={`/?tag=${tag}`}><Badge variant={"outline"} className="cursor-pointer hover:bg-secondary" >#{tag}</Badge></Link>)}

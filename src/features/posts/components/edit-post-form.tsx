@@ -14,12 +14,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { Post } from "../../../../generated/prisma/client";
@@ -33,6 +27,7 @@ import {
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor";
 import TagInput from "./tag-input";
+import ImageUpload from "./image-upload";
 
 type EditPostFormProps = {
   post: Post;
@@ -49,12 +44,13 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
       body: post.body,
       status: post.status,
       tags: post.tags ?? [],
+      images: post.images ?? [],
     },
   });
 
   async function onSubmit(data: z.infer<typeof postUpdateSchema>) {
-    const { id, title, body, status, tags } = data;
-    await execute({ id, title, body, status, tags });
+    const { id, title, body, status, images, tags } = data;
+    await execute({ id, title, body, status, images, tags });
   }
 
   useEffect(() => {
@@ -102,6 +98,21 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                   Content
                 </FieldLabel>
                 <RichTextEditor value={field.value} onChange={field.onChange}  />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="images"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-rhf-demo-description">
+                  Images
+                </FieldLabel>
+                <ImageUpload value={field.value || [] } onChange={field.onChange} max={4} />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

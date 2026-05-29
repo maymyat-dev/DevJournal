@@ -16,6 +16,7 @@ model Post {
   id        String     @id @default(cuid())
   title     String
   body      String
+  images    String[]   @default([])
   tags     String[]   @default([])
   status    PostStatus @default(IN_PROGRESS)
   createdAt DateTime   @default(now())
