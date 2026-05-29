@@ -23,7 +23,7 @@ async function Header() {
 
           <div>
             <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl">
-              Web Journal
+              ShareNest
             </h1>
             <p className="text-xs text-muted-foreground">
               Share your ideas with the world

@@ -15,7 +15,6 @@ async function Page({ searchParams }: Props) {
       <Suspense fallback={<div>Loading...</div>}>
         <PostList searchParams={params} />
       </Suspense>
-      <div></div>
     </main>
   );
 }

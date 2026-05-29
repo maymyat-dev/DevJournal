@@ -10,7 +10,7 @@ function AuthHero() {
 
       <div className="absolute bottom-10 left-10 z-10 max-w-sm text-white">
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-zinc-300">
-          Web Journal
+          ShareNest
         </p>
 
         <h1 className="text-4xl font-semibold leading-tight">

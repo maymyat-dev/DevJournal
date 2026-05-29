@@ -42,8 +42,6 @@ async function PostItem({
 
   const userVote = currentUserId ? votes.find((v) => v.userId === currentUserId)?.value || null : null;
 
-
-
   return (
     <Card className="relative">
       <Badge

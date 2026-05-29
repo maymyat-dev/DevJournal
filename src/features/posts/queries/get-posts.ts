@@ -18,7 +18,7 @@ export const getPosts = async (
   searchParams: SearchParams,
 ): Promise<PaginatedPosts> => {
   
-  const POSTS_PER_PAGE = 2;
+  const POSTS_PER_PAGE = 6;
   const currentPage = Number(searchParams.page) || 1;
   const skip = (currentPage - 1) * POSTS_PER_PAGE;
   const tagFilter = searchParams.tag
