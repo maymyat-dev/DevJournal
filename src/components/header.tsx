@@ -1,5 +1,5 @@
 
-import { loginPath, postsPath, registerPath } from "@/path";
+import { loginPath, postsPath, profilePath, registerPath } from "@/path";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
@@ -31,18 +31,12 @@ async function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" asChild>
-            <Link href={postsPath}>Posts</Link>
-          </Button>
-
-        </nav>
-
         <div className="flex items-center gap-3">
-          <ModeToggle />
+         
           {
             session ? <SignOutButton/> : <SignInAndSignUpButton/>
           }
+           <ModeToggle />
         </div>
       </div>
     </header>
@@ -67,6 +61,13 @@ function SignInAndSignUpButton() {
 
 function SignOutButton() {
   return (
+    <>
+      <Button variant={"link"}>
+        <Link href={profilePath}>profile</Link>
+      </Button>
+      <Button variant={"link"}>
+        <Link href={postsPath}>my posts</Link>
+      </Button>
     <form action={signOut} className="flex items-center gap-2">
       <Button 
         type="submit"
@@ -76,6 +77,7 @@ function SignOutButton() {
         <LogOut className="h-4 w-4" />
         <span className="hidden sm:inline font-medium">Sign out</span>
       </Button>
-    </form>
+      </form>
+    </>
   );
 }
