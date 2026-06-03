@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
+import Header from "@/components/header/header";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -42,11 +42,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          <main className="max-w-7xl mx-auto px-8 lg:px-0">
+          <div className="max-w-7xl mx-auto px-8 lg:px-0">
             <Toaster position="top-right" richColors/>
             <Header/>
             {children}
-             </main>
+             </div>
           </ThemeProvider></body>
     </html>
   );

@@ -10,7 +10,7 @@ type Props = {
 async function Page({ searchParams }: Props) {
   const params = await searchParams;
   return (
-    <main>
+    <main className='mb-10'>
       <Heading title="All Posts" description="View all posts" />
       <Suspense fallback={<div>Loading...</div>}>
         <PostList searchParams={params} />
