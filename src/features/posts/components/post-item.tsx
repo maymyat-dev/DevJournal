@@ -18,6 +18,7 @@ import { getSession } from "@/lib/getSession";
 import VoteButtons from "./vote-buttons";
 import PostImages from "./post-images";
 
+
 interface Props extends Post {
   isCard?: boolean;
   user: User;

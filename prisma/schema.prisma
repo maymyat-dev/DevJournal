@@ -41,7 +41,7 @@ model User {
   
   isPremium     Boolean   @default(false)
   stripeCustomerId  String? @unique
-  stripeSubScriptionId  String? @unique
+  stripeSubscriptionId   String? @unique
   premiumExpires  DateTime?
   premiumAmount   Int?
   premiumCurrency String?
