@@ -8,9 +8,7 @@ function isPremiumActive(status: Stripe.Subscription.Status) {
 
 const syncSubscription = async (subscription: Stripe.Subscription) => {
     const currentPeriodEndUnix = subscription.items.data[0].current_period_end;
-
     const customerId = typeof subscription.customer === 'string' ? subscription.customer : subscription.customer?.id;
-
     const metadataCustomerId = subscription.metadata?.userId;
 
     const whereCondition = metadataCustomerId ? { OR: [{ stripeCustomerId: customerId }, { id: metadataCustomerId }] } : { stripeCustomerId: customerId }

@@ -4,20 +4,17 @@ import { getSession } from "@/lib/getSession"
 import { prisma } from "@/lib/prisma"
 import { actionClient } from "@/lib/safe-action"
 import { stripe } from "@/lib/stripe"
-import { loginPath, profilePath } from "@/path"
-import { redirect } from "next/navigation"
+import { profilePath } from "@/path"
 import z from "zod"
 
-const createPremiumCheckoutSchema = z.object({
-    
-})
+const createPremiumCheckoutSchema = z.object({})
 export const createPremiumCheckout = actionClient.inputSchema(
     createPremiumCheckoutSchema
 ).action(async () => {
     const session = await getSession();
 
     if (!session) {
-        redirect(loginPath);
+      throw new Error("UNAUTHORIZED");
     }
 
     const siteUrl = process.env.NEXT_PUBLIC_APP_URL;
