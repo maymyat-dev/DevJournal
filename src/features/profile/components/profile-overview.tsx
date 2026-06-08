@@ -57,7 +57,7 @@ const ProfileOverview = async ({ user }: ProfileOverviewProps) => {
   const planLabel = isPremium ? "Premium" : "Free";
 
   return (
-    <Card className="overflow-hidden border-border/60 bg-card/50 shadow-lg backdrop-blur-md">
+    <Card className="overflow-hidden border-border/60 bg-card/50 shadow-lg backdrop-blur-md mt-5">
       <div
         className={`h-36 sm:h-44 w-full transition-all duration-300 relative ${
           isPremium
@@ -160,7 +160,7 @@ const ProfileOverview = async ({ user }: ProfileOverviewProps) => {
             Membership Details
           </h3>
 
-          <div className="grid grid-cols-2 gap-y-3 gap-x-4 p-4 rounded-2xl bg-muted/30 border border-border/30 text-sm font-medium text-foreground">
+          <div className="grid grid-cols-2 gap-y-3 gap-x-4 p-4 rounded-md bg-muted/30 border border-border/30 text-sm font-medium text-foreground">
             <div className="flex justify-between border-b border-border/20 pb-2 col-span-2 sm:col-span-1">
               <span className="text-muted-foreground">Plan</span>
               <span

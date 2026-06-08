@@ -12,7 +12,7 @@ async function Page({ searchParams }: Props) {
   const params = await searchParams;
   
   return (
-    <main className="container max-w-4xl m-auto mb-16 animate-in fade-in duration-500">
+    <main>
       <Heading 
           title="All Posts" 
           description="Discover interesting stories, ideas, and perspectives from around the world." 

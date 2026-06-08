@@ -6,7 +6,7 @@ function PostListSkeleton() {
       {Array.from({ length: 4 }).map((_, index) => (
         <div 
           key={index} 
-          className="rounded-2xl border border-border/50 bg-card/40 p-5 space-y-4 shadow-xs"
+          className="rounded-md border border-border/50 bg-card/40 p-5 space-y-4 shadow-xs"
         >
           <div className="flex items-center gap-3">
             <Skeleton className="h-10 w-10 rounded-full" />
