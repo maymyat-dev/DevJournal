@@ -1,4 +1,8 @@
+'use client'
 import Image from "next/image";
+import { useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 interface PostImagesProps {
   images: string[];
@@ -19,6 +23,8 @@ const imageSizes: Record<number, string> = {
 };
 
 const PostImages = ({ images }: PostImagesProps) => {
+  const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   if (!images?.length) return null;
 
   const displayImages = images.slice(0, 4);
@@ -29,12 +35,15 @@ const PostImages = ({ images }: PostImagesProps) => {
   const sizes =
     imageSizes[displayImages.length] || imageSizes[4];
 
+const slides = images.map((src) => ({ src }));
+
   return (
+    <>
     <div
       className={`mt-3 grid gap-1 overflow-hidden rounded-xl border ${gridStyle}`}
     >
       {displayImages.map((image, index) => (
-        <div key={index} className="relative h-full w-full">
+        <div key={index} className="relative h-full w-full"  onClick={() => {setOpen(true); setCurrentIndex(index)}}>
           <Image
             src={image}
             alt={`post-image-${index}`}
@@ -45,6 +54,13 @@ const PostImages = ({ images }: PostImagesProps) => {
         </div>
       ))}
     </div>
+    <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        index={currentIndex}
+        slides={slides}
+      />
+      </>
   );
 };
 
