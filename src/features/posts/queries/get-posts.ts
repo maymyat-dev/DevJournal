@@ -2,13 +2,14 @@ import { prisma } from "@/lib/prisma";
 import { Post, User } from "../../../../generated/prisma/client";
 import { SearchParams } from "../types/search-params";
 
-interface postWithUser extends Post {
+interface PostWithUser extends Post {
   user: User;
-  votes: { value: number;  userId: string}[]
+  votes: { value: number; userId: string }[],
+  _count: { comment: number }
 }
 
 interface PaginatedPosts {
-  posts: postWithUser[];
+  posts: PostWithUser[];
   totalPages: number;
   currentPage: number;
 }
@@ -53,6 +54,11 @@ export const getPosts = async (
             value: true,
             userId: true
           }
+        },
+        _count: {
+          select: {
+            comment: true
+          }
         }
       },
       skip,
@@ -64,6 +70,6 @@ export const getPosts = async (
   return {
     posts,
     totalPages,
-    currentPage
+    currentPage,
   };
 };

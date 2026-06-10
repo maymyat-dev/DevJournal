@@ -1,5 +1,5 @@
 
-const CommunityGuideLineCard = () => {
+const CommunityGuidelineCard = () => {
   return (
     <div className="rounded-md border border-border/50 bg-card p-5 shadow-xs">
   <h3 className="text-base font-bold tracking-tight mb-4">
@@ -16,4 +16,4 @@ const CommunityGuideLineCard = () => {
   );
 };
 
-export default CommunityGuideLineCard;
+export default CommunityGuidelineCard;

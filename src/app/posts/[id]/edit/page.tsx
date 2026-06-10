@@ -23,7 +23,7 @@ const EditPostPage = async({ params }: EditPostPageProps) => {
 
 
   return (
-      <div>
+      <div className="max-w-4xl mx-auto">
           <EditPostForm post={post} />
     </div>
   )

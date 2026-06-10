@@ -15,10 +15,10 @@ async function SinglePost({ params }: Props) {
         return <h2>Post not found.</h2>
     }
 
-    return <>
+    return <div className="max-w-4xl mx-auto">
         <PostItem {...post} isCard={false} />
         <Comments postId={post.id}/>
-    </>
+    </div>
 }
 
 export default SinglePost

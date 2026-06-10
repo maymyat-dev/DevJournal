@@ -20,10 +20,12 @@ async function page({ searchParams }: Props) {
   }
   
   return (
-    <main>
-      <Heading title="All Posts" description="View all posts" />
+    <main className="max-w-4xl mx-auto">
+      <Heading title="All Posts" description="Discover interesting stories, ideas, and perspectives from around the world." />
       
-      <CreatePostForm/>
+      <div className="mt-5">
+        <CreatePostForm/>
+      </div>
       <Suspense fallback={<div>Loading...</div>}>
         <PostList userId={session.user.id} searchParams={params} />
       </Suspense>

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getCommunityStats } from "@/features/profile/queries/get-community-stats";
+import Link from "next/link";
 const CommunityStats = async() => {
       const stats = await getCommunityStats()
   return (
@@ -19,8 +20,9 @@ const CommunityStats = async() => {
           </div>
         </div>
 
-        <Button className="w-full rounded-xl font-medium shadow-sm transition-all active:scale-98">
-          Join Community
+        <Button asChild className="w-full rounded-xl font-medium shadow-sm transition-all active:scale-98">
+              <Link href="/posts">
+              Create Post</Link>
         </Button>
       </div>
   )

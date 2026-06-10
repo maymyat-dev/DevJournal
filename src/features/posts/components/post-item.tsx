@@ -15,13 +15,14 @@ import { isOwner } from "@/lib/isOwner";
 import { getSession } from "@/lib/getSession";
 import VoteButtons from "./vote-buttons";
 import PostImages from "./post-images";
-import { Crown, ArrowRight, Edit3 } from "lucide-react";
+import { Crown, ArrowRight, Edit3, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Props extends Post {
   isCard?: boolean;
   user: User;
   votes: { value: number; userId: string }[];
+  _count: { comment: number }
 }
 
 async function PostItem({
@@ -34,6 +35,7 @@ async function PostItem({
   user,
   votes,
   tags,
+  _count
 }: Props) {
   const session = await getSession();
   const currentUserId = session?.user.id;
@@ -56,7 +58,7 @@ async function PostItem({
     <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-500 animate-gradient-x" />
   )} */}
 
-      <CardHeader className="space-y-4">
+      <CardHeader className="space-y-2">
         <div className="flex items-center gap-2">
           <Avatar className="h-6 w-6 border border-muted-foreground/10">
             <AvatarImage src={user.image ?? ""} alt={user.name} />
@@ -69,11 +71,12 @@ async function PostItem({
             <span className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
               {user.name}
             </span>
+            
 
             {isPremium && (
               <Badge
                 variant="default"
-                className="h-4.5 gap-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-[9px] font-black text-white uppercase tracking-wider px-2 border-none shadow-xs shadow-amber-500/20"
+                className="h-4.5 gap-0.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 text-[9px] font-black text-white uppercase tracking-wider px-2 border-none shadow-xs shadow-amber-500/20"
               >
                 <Crown className="h-2.5 w-2.5 fill-current animate-pulse" />
                 Pro
@@ -81,7 +84,7 @@ async function PostItem({
             )}
           </div>
         </div>
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between">
           <CardTitle className="text-xl font-bold tracking-tight text-foreground/90 group-hover:text-primary transition-colors duration-200 leading-snug">
             {title}
           </CardTitle>
@@ -137,6 +140,10 @@ async function PostItem({
             initialScore={score}
             initialUserVote={userVote}
           />
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <MessageCircle className="h-4 w-4" />
+<span>{_count.comment}</span>
+          </div>
         </div>
 
         <div className="flex items-center sm:gap-2 gap-0">
@@ -154,7 +161,9 @@ async function PostItem({
             </Button>
           )}
 
-          <Button
+          {
+            isCard && (
+              <Button
             variant="default"
             size="sm"
             className="h-8 rounded-lg font-semibold text-xs px-4 shadow-sm shadow-primary/10 transition-all duration-200 hover:shadow-md active:scale-98"
@@ -165,6 +174,8 @@ async function PostItem({
               <ArrowRight className="ml-1.5 h-3.5 w-3.5 opacity-90 transition-transform duration-250 group-hover:translate-x-0.5" />
             </Link>
           </Button>
+            )
+          }
         </div>
       </CardContent>
     </Card>
