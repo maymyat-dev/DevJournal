@@ -17,12 +17,13 @@ import VoteButtons from "./vote-buttons";
 import PostImages from "./post-images";
 import { Crown, ArrowRight, Edit3, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { formatDistanceToNow } from "date-fns";
 
 interface Props extends Post {
   isCard?: boolean;
   user: User;
   votes: { value: number; userId: string }[];
-  _count: { comment: number }
+  _count: { comment: number };
 }
 
 async function PostItem({
@@ -35,7 +36,8 @@ async function PostItem({
   user,
   votes,
   tags,
-  _count
+  createdAt,
+  _count,
 }: Props) {
   const session = await getSession();
   const currentUserId = session?.user.id;
@@ -60,28 +62,33 @@ async function PostItem({
 
       <CardHeader className="space-y-2">
         <div className="flex items-center gap-2">
-          <Avatar className="h-6 w-6 border border-muted-foreground/10">
-            <AvatarImage src={user.image ?? ""} alt={user.name} />
+          <Avatar className="h-8 w-8 border border-muted-foreground/10">
+            <AvatarImage src={user?.image ?? ""} alt={user?.name ?? "User"} />
             <AvatarFallback className="text-[10px] font-bold">
-              {user.name.charAt(0).toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase() ?? "U"}
             </AvatarFallback>
           </Avatar>
 
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-              {user.name}
-            </span>
-            
+          <div className="flex flex-col gap-0.5">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                {user?.name ?? "Anonymous"}
+              </span>
 
-            {isPremium && (
-              <Badge
-                variant="default"
-                className="h-4.5 gap-0.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 text-[9px] font-black text-white uppercase tracking-wider px-2 border-none shadow-xs shadow-amber-500/20"
-              >
-                <Crown className="h-2.5 w-2.5 fill-current animate-pulse" />
-                Pro
-              </Badge>
-            )}
+              {isPremium && (
+                <Badge
+                  variant="default"
+                  className="h-4.5 gap-0.5 rounded-full bg-linear-to-r from-amber-500 to-orange-500 text-[9px] font-black text-white uppercase tracking-wider px-2 border-none shadow-xs shadow-amber-500/20 shrink-0"
+                >
+                  <Crown className="h-2.5 w-2.5 fill-current animate-pulse" />
+                  Pro
+                </Badge>
+              )}
+            </div>
+
+            <span className="text-xs text-muted-foreground">
+              {formatDistanceToNow(createdAt, { addSuffix: true })}
+            </span>
           </div>
         </div>
         <div className="flex items-start justify-between">
@@ -142,7 +149,7 @@ async function PostItem({
           />
           <div className="flex items-center gap-1 text-muted-foreground">
             <MessageCircle className="h-4 w-4" />
-<span>{_count.comment}</span>
+            <span>{_count.comment}</span>
           </div>
         </div>
 
@@ -161,21 +168,19 @@ async function PostItem({
             </Button>
           )}
 
-          {
-            isCard && (
-              <Button
-            variant="default"
-            size="sm"
-            className="h-8 rounded-lg font-semibold text-xs px-4 shadow-sm shadow-primary/10 transition-all duration-200 hover:shadow-md active:scale-98"
-            asChild
-          >
-            <Link href={singlePostPath(id)}>
-              <span>Read Post</span>
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5 opacity-90 transition-transform duration-250 group-hover:translate-x-0.5" />
-            </Link>
-          </Button>
-            )
-          }
+          {isCard && (
+            <Button
+              variant="default"
+              size="sm"
+              className="h-8 rounded-lg font-semibold text-xs px-4 shadow-sm shadow-primary/10 transition-all duration-200 hover:shadow-md active:scale-98"
+              asChild
+            >
+              <Link href={singlePostPath(id)}>
+                <span>Read Post</span>
+                <ArrowRight className="ml-1.5 h-3.5 w-3.5 opacity-90 transition-transform duration-250 group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -6,6 +6,7 @@ import { getSession } from '@/lib/getSession';
 import { loginPath } from '@/path';
 import { redirect } from 'next/navigation';
 import { SearchParams } from "@/features/posts/types/search-params";
+import PostListSkeleton from "@/features/posts/components/post-list-skeleton";
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -26,7 +27,7 @@ async function page({ searchParams }: Props) {
       <div className="mt-5">
         <CreatePostForm/>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PostListSkeleton />}>
         <PostList userId={session.user.id} searchParams={params} />
       </Suspense>
      
