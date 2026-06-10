@@ -45,7 +45,7 @@ export default function RootLayout({
           <div>
             <Toaster position="top-right" richColors/>
             <Header/>
-            <div className="max-w-7xl mx-auto px-8 lg:px-0">
+            <div className="max-w-7xl mx-auto px-4 lg:px-0">
               {children}
             </div>
              </div>

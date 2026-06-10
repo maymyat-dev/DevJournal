@@ -8,7 +8,7 @@ interface CommentsProps {
 }
 const Comments = async({ postId }: CommentsProps) => {
   const comments = await getComments(postId);
-  console.log(comments)
+  // console.log(comments)
   return (
     <div className="mt-5 space-y-5">
       <CreateCommentForm />
