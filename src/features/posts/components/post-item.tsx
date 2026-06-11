@@ -147,10 +147,20 @@ async function PostItem({
             initialScore={score}
             initialUserVote={userVote}
           />
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <MessageCircle className="h-4 w-4" />
-            <span>{_count.comment}</span>
-          </div>
+          {!isCard ? (
+            <div className="flex items-center gap-1 text-muted-foreground">
+              <MessageCircle className="h-4 w-4" />
+              <span>{_count.comment}</span>
+            </div>
+          ) : (
+            <Link
+              href={singlePostPath(id)}
+              className="flex items-center gap-1 text-muted-foreground"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>{_count.comment}</span>
+            </Link>
+          )}
         </div>
 
         <div className="flex items-center sm:gap-2 gap-0">

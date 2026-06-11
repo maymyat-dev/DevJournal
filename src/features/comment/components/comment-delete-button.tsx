@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { deleteComment } from "../actions/delete-comment";
+import { Trash2 } from "lucide-react";
 
 type CommentDeleteProps = {
   id: string;
@@ -30,7 +31,7 @@ const CommentDeleteButton = ({ id }: CommentDeleteProps) => {
       toast.success("Comment deleted successfully");
     }
     if (hasErrored) {
-      toast.error("Error deleting Comment");
+      toast.error("You can only delete your own comments.");
     }
   }, [hasSucceeded, hasErrored, router]);
 
@@ -38,7 +39,9 @@ const CommentDeleteButton = ({ id }: CommentDeleteProps) => {
     <CardFooter>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="destructive">Delete</Button>
+          <Button variant="destructive" size="icon" aria-label="Delete comment">
+            <Trash2 className="h-4 w-4" />
+          </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
