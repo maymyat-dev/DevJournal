@@ -17,9 +17,7 @@ export const createPremiumCheckout = actionClient.inputSchema(
       throw new Error("UNAUTHORIZED");
     }
 
-    const siteUrl = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+    const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
     const priceId = process.env.STRIPE_PREMIUM_PRICE_ID;
 
     if (!siteUrl || !priceId) {
