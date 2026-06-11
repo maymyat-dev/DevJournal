@@ -8,13 +8,13 @@ import { toast } from "sonner";
 const PremiumUpgradeButton = () => {
 
     const { execute, isPending } = useAction(createPremiumCheckout, {
-        onSuccess: ({data}) => {
-            if (data?.url) {
-                window.location.href = data.url;
-            } else {
-                toast.error("Unable to reach checkout link");
-            }
-        },
+        onSuccess: ({ data }) => {
+  console.log("Stripe URL:", data?.url);
+
+  if (data?.url) {
+    window.location.href = data.url;
+  }
+},
         onError: ({ error }) => {
             const errorMessage = error.serverError || "Something went wrong. Please try again.";
             toast.error(errorMessage);

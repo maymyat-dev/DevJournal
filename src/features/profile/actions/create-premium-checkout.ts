@@ -20,6 +20,8 @@ export const createPremiumCheckout = actionClient.inputSchema(
     const siteUrl = process.env.NEXT_PUBLIC_APP_URL;
     const priceId = process.env.STRIPE_PREMIUM_PRICE_ID;
 
+      console.log(siteUrl);
+
     if (!siteUrl || !priceId) {
         throw new Error("Stripe env variables are missing");
     }
